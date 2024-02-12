@@ -10,8 +10,6 @@ import androidx.activity.viewModels
 
 class MainActivity : AppCompatActivity() {
 
-    var scoreTeamA = 0
-    var scoreTeamB = 0
     private lateinit var binding: ActivityMainBinding
     private val counterViewModel: CounterViewModel by viewModels()
 
@@ -19,79 +17,79 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        displayForTeamA()
+        displayForTeamB()
     }
 
     /**
      * Increase the score for Team A by 1 point.
      */
     fun addOneForTeamA(v: View?) {
-        scoreTeamA++
-        displayForTeamA(scoreTeamA)
+        counterViewModel.teamAScoreIncrease(1)
+        displayForTeamA()
     }
 
     /**
      * Increase the score for Team A by 2 points.
      */
     fun addTwoForTeamA(v: View?) {
-        scoreTeamA += 2
-        displayForTeamA(scoreTeamA)
+        counterViewModel.teamAScoreIncrease(2)
+        displayForTeamA()
     }
 
     /**
      * Increase the score for Team A by 3 points.
      */
     fun addThreeForTeamA(v: View?) {
-        scoreTeamA += 3
-        displayForTeamA(scoreTeamA)
+        counterViewModel.teamAScoreIncrease(3)
+        displayForTeamA()
     }
 
     /**
      * Increase the score for Team B by 1 point.
      */
     fun addOneForTeamB(v: View?) {
-        scoreTeamB++
-        displayForTeamB(scoreTeamB)
+        counterViewModel.teamBScoreIncrease(1)
+        displayForTeamB()
     }
 
     /**
      * Increase the score for Team B by 2 points.
      */
     fun addTwoForTeamB(v: View?) {
-        scoreTeamB += 2
-        displayForTeamB(scoreTeamB)
+        counterViewModel.teamBScoreIncrease(2)
+        displayForTeamB()
     }
 
     /**
      * Increase the score for Team B by 3 points.
      */
     fun addThreeForTeamB(v: View?) {
-        scoreTeamB += 3
-        displayForTeamB(scoreTeamB)
+        counterViewModel.teamBScoreIncrease(3)
+        displayForTeamB()
     }
 
     /**
      * Resets the score for both teams back to 0.
      */
     fun resetScore(v: View?) {
-        scoreTeamA = 0
-        scoreTeamB = 0
-        displayForTeamA(scoreTeamA)
-        displayForTeamB(scoreTeamB)
+        counterViewModel.resetScore()
+        displayForTeamA()
+        displayForTeamB()
     }
 
     /**
      * Displays the given score for Team A.
      */
-    fun displayForTeamA(score: Int) {
-        val scoreView = binding.teamAScore
-        scoreView.text = score.toString()
+    private fun displayForTeamA() {
+        binding.teamAScore.text = counterViewModel.teamAScore.toString()
     }
 
     /**
      * Displays the given score for Team B.
      */
-    fun displayForTeamB(score: Int) {
-        val scoreView = binding.teamBScore
-        scoreView.text = score.toString()
+    private fun displayForTeamB() {
+        binding.teamBScore.text = counterViewModel.teamBScore.toString()
     }
 }
